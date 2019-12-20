@@ -6,6 +6,7 @@ using Satsuma;
 
 namespace Graph
 {
+    // main class
     class Program
     {
         // Variables
