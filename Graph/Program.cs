@@ -21,29 +21,62 @@ namespace Graph
 
         static void Main()
         {
+            CustomGraph customGraph = new CustomGraph();
+            Node[] nodes = new Node[AMOUNT_OF_NODES];
             // Store costs for each node
             Dictionary<Node, double> costs = new Dictionary<Node, double>();
 
-            int i = 0;
-            foreach (Node node in graph.Nodes())
+            for (int i = 0; i < AMOUNT_OF_NODES; i++)
+            {
+                nodes[i] = customGraph.AddNode();
+            }
+
+            customGraph.AddArc(nodes[0], nodes[1], Directedness.Directed);
+            customGraph.AddArc(nodes[0], nodes[2], Directedness.Directed);
+            customGraph.AddArc(nodes[1], nodes[3], Directedness.Directed);
+            customGraph.AddArc(nodes[1], nodes[4], Directedness.Directed);
+            customGraph.AddArc(nodes[2], nodes[3], Directedness.Directed);
+            customGraph.AddArc(nodes[3], nodes[4], Directedness.Directed);
+            customGraph.AddArc(nodes[3], nodes[5], Directedness.Directed);
+            customGraph.AddArc(nodes[4], nodes[5], Directedness.Directed);
+            customGraph.AddArc(nodes[5], nodes[6], Directedness.Directed);
+            customGraph.AddArc(nodes[5], nodes[7], Directedness.Directed);
+            customGraph.AddArc(nodes[6], nodes[7], Directedness.Directed);
+            customGraph.AddArc(nodes[7], nodes[8], Directedness.Directed);
+            customGraph.AddArc(nodes[8], nodes[9], Directedness.Directed);
+            customGraph.AddArc(nodes[9], nodes[10], Directedness.Directed);
+            customGraph.AddArc(nodes[10], nodes[11], Directedness.Directed);
+            customGraph.AddArc(nodes[10], nodes[12], Directedness.Directed);
+            customGraph.AddArc(nodes[10], nodes[13], Directedness.Directed);
+            customGraph.AddArc(nodes[10], nodes[14], Directedness.Directed);
+            customGraph.AddArc(nodes[14], nodes[15], Directedness.Directed);
+            customGraph.AddArc(nodes[14], nodes[16], Directedness.Directed);
+            customGraph.AddArc(nodes[16], nodes[17], Directedness.Directed);
+            customGraph.AddArc(nodes[16], nodes[18], Directedness.Directed);
+            customGraph.AddArc(nodes[18], nodes[19], Directedness.Directed);
+
+
+            int n = 0;
+            foreach (Node node in customGraph.Nodes())
             {
                 // Assign a random cost to node
-                costs[node] = weights[i++];
+                costs[node] = weights[n++];
             }
 
-
-            // comment out when running actual code
-            foreach (Arc arc in graph.Arcs())
+            Console.WriteLine("Graph: ");
+            foreach (Arc arc in customGraph.Arcs())
             {
-                Console.Write("Edge: " + (graph.U(arc) + "->" + graph.V(arc)));
-                Console.WriteLine(", Cost: " + (Math.Abs(costs[graph.U(arc)] - costs[graph.V(arc)])));
+                
+                Console.Write("Edge: " + (customGraph.U(arc) + "->" + customGraph.V(arc)));
+                Console.WriteLine(", Cost: " + (Math.Abs(costs[customGraph.U(arc)] - costs[customGraph.V(arc)])));
             }
-
+            Console.WriteLine();
+            
             // The start and goal of the graph
-            Node start = graph.GetNode(0), end = graph.GetNode(18);
+            Node start = nodes[0], end = nodes[19];
 
             // Set up Dijikstra
-            Dijkstra dijkstra = new Dijkstra(graph, arc => Math.Abs(costs[graph.U(arc)] - costs[graph.V(arc)]), DijkstraMode.Sum);
+            Dijkstra dijkstra = new Dijkstra(customGraph, arc => Math.Abs(costs[customGraph.U(arc)] - costs[customGraph.V(arc)]), DijkstraMode.Sum);
 
             // Set the start for Dijikstra
             dijkstra.AddSource(start);
@@ -57,7 +90,14 @@ namespace Graph
             // Display each node in the path
             foreach (var node in dijkstra.GetPath(end).Nodes())
             {
-                Console.Write(node + " -> ");
+                if (node != end)
+                {
+                    Console.Write(node + " -> ");
+                }
+                else
+                {
+                    Console.Write(node);
+                }
             }
             Console.WriteLine();
         }
