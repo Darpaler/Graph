@@ -11,9 +11,7 @@ namespace Graph
     {
         // Variables
         public static int AMOUNT_OF_NODES = 20;             // The amount of nodes to add to the graph
-        private static Random random = new Random();        // Random number generator
-        private static CompleteGraph graph = new CompleteGraph(AMOUNT_OF_NODES, Directedness.Undirected);     // The graph storing the nodes
-        
+
         private static double[] weights =
         {
             0.5, 0.5, 0.7, 0.8, 0.6, 0.9, 0.4, 0.2, 0.01, 0.6, 0.6, 0.7, 0.6, 0.9, 0.4, 0.2, 0.01, 0.6, 0.6, 0.7
@@ -66,7 +64,6 @@ namespace Graph
             Console.WriteLine("Graph: ");
             foreach (Arc arc in customGraph.Arcs())
             {
-                
                 Console.Write("Edge: " + (customGraph.U(arc) + "->" + customGraph.V(arc)));
                 Console.WriteLine(", Cost: " + (Math.Abs(costs[customGraph.U(arc)] - costs[customGraph.V(arc)])));
             }
